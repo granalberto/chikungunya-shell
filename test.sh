@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #
 # Test all functions in shell framework
 #
