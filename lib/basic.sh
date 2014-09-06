@@ -206,7 +206,8 @@ check_name()
 }
 
 
-function get_password() {
+function get_password {
+
 	if [ -n "${1}" ]; then
 		local  __resultvar="$(printf "%s\\n" "${1}" | tr '[:upper:]' '[:lower:]')"
 	else
@@ -383,6 +384,10 @@ has_internet()
 ###########
 
 
+# Temporalmente, para que no falle test.sh
+. linux_functions.sh
+
+
 
 ####################
 #
@@ -426,6 +431,3 @@ template()
 		return 1
 	fi
 }
-
-# Temporalmente, para que no falle test.sh
-. linux_functions.sh
