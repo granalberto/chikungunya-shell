@@ -1,0 +1,10 @@
+
+digraph G {
+	inicio [shape=Mdiamond];
+	inicio -> "lib/basic.sh";
+	get_os [shape=plaintext];
+	"lib/basic.sh" -> get_os;
+	get_os -> "lib/linux_functions.sh" [label=Linux];
+	get_os -> "lib/bsd_functions.sh" [label=BSD]
+
+	}
