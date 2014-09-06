@@ -206,7 +206,7 @@ check_name()
 }
 
 
-function get_password() {
+get_password() {
 	if [ -n "${1}" ]; then
 		local  __resultvar="$(printf "%s\\n" "${1}" | tr '[:upper:]' '[:lower:]')"
 	else

@@ -32,16 +32,16 @@ LOGFILE="log/test.log"
 
 message "Este es un mensaje de prueba"
 echo "-"
-info "Este mensaje es de información"
+info "Este mensaje es de informacion"
 echo "-"
 warning "Esta es una advertencia"
 echo "-"
-debug "Esta es una información de depuración"
+debug "Esta es una información de depuracion"
 echo "-"
 error "Este es un mensaje de error"
 echo "-"
 
-install_package "apache-22"
+#install_package "apache-22"
 echo "--------"
 debug "My Hostname: $(get_hostname).$(get_domain)"
 
@@ -57,7 +57,7 @@ testing <<< "sits proudly on his throne in localhost."
 
 # _die "error message"
 
-_dirname "/home/jesuslara/Proyectos/chikungunya/LICENSE"
+_dirname "/home/amijares/chikungunya-shell/LICENSE"
 
 if [ ! has_internet ]; then
 	warning "No hay internet"
