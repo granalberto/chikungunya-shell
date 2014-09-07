@@ -1,14 +1,13 @@
-
 ### Debian-based functions
 
-is_debian()
+is_debian() 
 {
-	if [ -f "/etc/debian_version" ]; then
+	if [ -f /etc/debian_version ]; then
 		# is a Debian-based distribution
-		deb_based=true
+		#deb_based=true
 		return 0
 	else
-		deb_based=false
+		#deb_based=false
 		return 1
 	fi
 }
@@ -23,6 +22,17 @@ get_distribution()
 	lsb_release -s -i
 }
 
+# return host distribution based on lsb-release
+get_distribution() 
+{
+	if [ -z $(which lsb_release) ]; then
+		error "lsb-release is required"
+		return 1
+	fi
+	lsb_release -s -i
+}
+
+
 # get codename (ex: wheezy)
 get_suite() 
 {
@@ -32,6 +42,14 @@ get_suite()
 	fi
 	lsb_release -s -c
 }
+
+
+####################
+#
+# Packages and applications (distribution-based)
+#
+###########
+
 
 # install a Debian package with no prompt and default options
 install_deb()
@@ -98,7 +116,8 @@ is_installed()
 		return 0
 	fi
 }
-	
+
+
 ### CentOS-based functions
 
 is_redhat()
@@ -112,6 +131,7 @@ is_redhat()
 		return 1
 	fi
 }
+
 
 is_fedora()
 {
@@ -151,6 +171,14 @@ install_package()
     fi
 }
 
+
+####################
+#
+# Network-related functions
+#
+###########
+
+
 get_hostname()
 {
     local  __resultvar=$1
@@ -173,8 +201,10 @@ get_domain()
     fi
 }
 
+
+
 ifdev() {
-IF=(`cat /proc/net/dev | grep ':' | cut -d ':' -f 1 | tr '\n' ' '`)
+IF=`cat /proc/net/dev | grep ':' | cut -d ':' -f 1 | tr '\n' ' '`
 }
 
 # return 0 if parameter is a valid network interface, 1 otherwise
@@ -232,11 +262,12 @@ get_netmask() {
 }
 
 # get network from ip and netmask
-get_network() {
-	IFS=. read -r i1 i2 i3 i4 <<< "$1"
-	IFS=. read -r m1 m2 m3 m4 <<< "$2"
-	printf "%d.%d.%d.%d\n" "$((i1 & m1))" "$(($i2 & m2))" "$((i3 & m3))" "$((i4 & m4))"
-}
+# must be rewriten 'cause is bash dependent
+#get_network() {
+#	IFS= read -r i1 i2 i3 i4 <<< "$1"
+#	IFS= read -r m1 m2 m3 m4 <<< "$2"
+#	printf "%d.%d.%d.%d\n" "$((i1 & m1))" "$(($i2 & m2))" "$((i3 & m3))" "$((i4 & m4))"
+#}
 
 # get broadcast from interface
 get_broadcast() {
@@ -269,3 +300,4 @@ get_subnet() {
 	MASK=`get_netmask`
 	echo $(mask2cidr $MASK)
 }
+
