@@ -183,7 +183,7 @@ get_hostname()
 {
     local  __resultvar=$1
     local  hostname=`hostname --short`
-    if [[ "$__resultvar" ]]; then
+    if [ "$__resultvar" ]; then
         eval $__resultvar="'$hostname'"
     else
         echo "$hostname"
@@ -194,7 +194,7 @@ get_domain()
 {
     local  __resultvar=$1
     local  domainname=`hostname -d`
-    if [[ "$__resultvar" ]]; then
+    if [ "$__resultvar" ]; then
         eval $__resultvar="'$domainname'"
     else
         echo "$domainname"
@@ -237,7 +237,7 @@ valid_ipv4()
 
 firstdev() {
 	ifdev
-	LAN_INTERFACE=${IF[1]}
+	LAN_INTERFACE=`echo $IF | awk '{print $2}'`
 }
 
 # get ip from interface
