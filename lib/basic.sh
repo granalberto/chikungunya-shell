@@ -402,6 +402,7 @@ EOF
 	fi
 }
 
+
 # replace all bash placeholders (${}) with your value without replace shell and sub-shell strings
 # usage: var=$(template $filename)
 # or
