@@ -43,13 +43,13 @@ get_version()
 #
 ##
 
-# export colors
-export NORMAL='\033[0m'
-export RED='\033[1;31m'
-export GREEN='\033[1;32m'
-export YELLOW='\033[1;33m'
-export WHITE='\033[1;37m'
-export BLUE='\033[1;34m'
+# define colors
+NORMAL='\033[0m'
+RED='\033[1;31m'
+GREEN='\033[1;32m'
+YELLOW='\033[1;33m'
+WHITE='\033[1;37m'
+BLUE='\033[1;34m'
 
 #  If we're running verbosely show a message, otherwise swallow it.
 #
@@ -247,7 +247,7 @@ get_password() {
         break
 	done
     if [ -n "$pass1" ]; then
-		if [[ "$__resultvar" ]]; then
+		if [ "$__resultvar" ]; then
 			eval $__resultvar="'$pass1'"
 		else
 			echo "$pass1"
@@ -313,7 +313,7 @@ get_config()
 		if egrep -q -v '^#|^[^ ]*=[^;]*' "$configfile"; then
 			error "Config file is unclean or invalid"
 		else
-			source $configfile
+			. $configfile
 		fi
 	else
 		error "config file ${configfile} does not exists"
@@ -413,13 +413,12 @@ template()
 {
 	file=$@
 	if [ -f "$file" ]; then
-	while read -r line ; do
-		line=${line//\"/\\\"}
-		line=${line//\`/\\\`}
-		line=${line//\$/\\\$}
-		line=${line//\\\${/\${}
+	        line=`cat $file`
+		# line=`sed 's/\"/\\\"/g' ${file}`
+		# line=`echo ${line} | sed 's/\`/\\\`/g'`
+		# line=`echo ${line} | sed 's/\$/\\\$/g'` puts an ending $
+		# line=`echo ${line} | sed 's/\\\${/\${/g'`
 		eval "echo \"$line\"";
-	done < "${file}"
 		return 0
 	else
 		return 1
@@ -430,9 +429,10 @@ case `uname` in
 
     Linux)
 
-	. ./lib/linux_functions.sh;;
+	. ./lib/linux_functions.sh
+	;;
 
-    FreeBSD|NetBSD)
+    {Free|Open}BSD)
 
 	. ./lib/bsd_functions.sh
 	;;
